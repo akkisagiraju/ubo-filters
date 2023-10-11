@@ -40,26 +40,95 @@ retail.sc.com##[id*="adobe-landing"]
 ||m.media-amazon.com/images/G/31/HCTP/IBG/SearchImages/m/Smartphone.jpg$image
 www.amazon.in##.s-spacing-small.widgetId\=loom-mobile-inline-slot_buying_guide_rss_Smartphone_A21TJRUUN4KGV.pd_rd_r-1c488fc4-13a3-4445-8af7-aba200ce8238.content-id\=amzn1\.sym\.630196ad-a8f0-4433-ad60-d1dc7754d936\:amzn1\.sym\.630196ad-a8f0-4433-ad60-d1dc7754d936.pd_rd_w-ozoi2.pd_rd_wg-bN902.pf_rd_r\=FJE448MR4GYMKQE2XV4V.pf_rd_p\=630196ad-a8f0-4433-ad60-d1dc7754d936.widget\=loom-mobile-inline-slot_buying_guide_rss_Smartphone_A21TJRUUN4KGV.template\=FEATURE_CARD.slot\=MAIN.celwidget.s-widget-container > div
 
-! 2023-09-08 https://www.youtube.com
-www.youtube.com##ytd-guide-renderer a.yt-simple-endpoint path[d^="M10 14.65v-5.3L15 12l-5 2.65zm7.77-4.33"]:upward(ytd-guide-entry-renderer)
-www.youtube.com##ytd-mini-guide-renderer a.yt-simple-endpoint path[d^="M10 14.65v-5.3L15 12l-5 2.65zm7.77-4.33"]:upward(ytd-mini-guide-entry-renderer)
-www.youtube.com##ytd-browse[page-subtype="home"] .ytd-thumbnail[href^="/shorts/"]:upward(ytd-rich-item-renderer)
-www.youtube.com##ytd-browse[page-subtype="subscriptions"] .ytd-thumbnail[href^="/shorts/"]:upward(ytd-grid-video-renderer,ytd-rich-item-renderer)
-www.youtube.com##ytd-search .ytd-thumbnail[href^="/shorts/"]:upward(ytd-video-renderer)
-www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-video-renderer .ytd-thumbnail[href^="/shorts/"]:upward(ytd-item-section-renderer)
-www.youtube.com##ytd-watch-next-secondary-results-renderer .ytd-thumbnail[href^="/shorts/"]:upward(ytd-compact-video-renderer,ytd-shelf-renderer)
-www.youtube.com##ytd-browse[page-subtype="trending"] .ytd-thumbnail[href^="/shorts/"]:upward(ytd-video-renderer)
-www.youtube.com##ytd-search .ytd-thumbnail[href^="/shorts/"]:upward(ytd-video-renderer)
-www.youtube.com##ytd-rich-shelf-renderer[is-shorts]
-www.youtube.com##ytd-rich-shelf-renderer[is-shorts].ytd-rich-section-renderer:upward(ytd-rich-section-renderer)
-www.youtube.com##ytd-reel-shelf-renderer
-m.youtube.com##ytm-reel-shelf-renderer
-m.youtube.com##ytm-pivot-bar-renderer div.pivot-shorts:upward(ytm-pivot-bar-item-renderer)
-m.youtube.com##ytm-browse ytm-item-section-renderer ytm-thumbnail-overlay-time-status-renderer[data-style="SHORTS"]:upward(ytm-video-with-context-renderer)
-m.youtube.com##ytm-browse ytm-item-section-renderer ytm-thumbnail-overlay-time-status-renderer[data-style="SHORTS"]:upward(ytm-compact-video-renderer)
-m.youtube.com##ytm-search ytm-thumbnail-overlay-time-status-renderer[data-style="SHORTS"]:upward(ytm-compact-video-renderer,ytm-video-with-context-renderer)
-m.youtube.com##ytm-single-column-watch-next-results-renderer ytm-thumbnail-overlay-time-status-renderer span:has-text(/^(0:\d\d|1:0\d)$/):upward(ytm-video-with-context-renderer)
-youtube.com##ytd-rich-grid-row, #contents.ytd-rich-grid-row:style(display:contents !important;)
+! Title: Hide YouTube Shorts
+! Description: Hide all traces of YouTube shorts videos on YouTube
+! Version: 1.6.0
+! Last modified: 2023-08-24 20:18
+! Expires: 2 weeks (update frequency)
+! Homepage: https://github.com/gijsdev/ublock-hide-yt-shorts
+! License: https://github.com/gijsdev/ublock-hide-yt-shorts/blob/master/LICENSE.md
+
+! Hide all videos containing the phrase "#shorts"
+youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(#shorts))
+youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(#Shorts))
+youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(#short))
+youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(#Short))
+
+! Hide all videos with the shorts indicator on the thumbnail
+youtube.com##ytd-grid-video-renderer:has([overlay-style="SHORTS"])
+youtube.com##ytd-rich-item-renderer:has([overlay-style="SHORTS"])
+youtube.com##ytd-video-renderer:has([overlay-style="SHORTS"])
+youtube.com##ytd-item-section-renderer.ytd-section-list-renderer[page-subtype="subscriptions"]:has(ytd-video-renderer:has([overlay-style="SHORTS"]))
+
+! Hide shorts button in sidebar
+youtube.com##ytd-guide-entry-renderer:has-text(Shorts)
+youtube.com##ytd-mini-guide-entry-renderer:has-text(Shorts)
+
+! Hide shorts section on homepage
+youtube.com##ytd-rich-section-renderer:has(#rich-shelf-header:has-text(Shorts))
+youtube.com##ytd-reel-shelf-renderer:has(.ytd-reel-shelf-renderer:has-text(Shorts))
+
+! Hide shorts tab on channel pages
+youtube.com##tp-yt-paper-tab:has(.tp-yt-paper-tab:has-text(Shorts))
+
+! Remove empty spaces in grid
+youtube.com##ytd-rich-grid-row,#contents.ytd-rich-grid-row:style(display: contents !important)
+
+
+!!! MOBILE !!!
+
+! Hide all videos in home feed containing the phrase "#shorts"
+m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(#shorts))
+m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(#Shorts))
+m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(#short))
+m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(#Short))
+
+! Hide all videos in subscription feed containing the phrase "#shorts"
+m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(#shorts))
+m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(#Shorts))
+m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(#short))
+m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(#Short))
+
+! Hide shorts button in the bottom navigation bar
+m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
+
+! Hide all videos with the shorts indicator on the thumbnail
+m.youtube.com##ytm-video-with-context-renderer:has([data-style="SHORTS"])
+
+! Hide shorts sections
+m.youtube.com##ytm-rich-section-renderer:has(ytm-reel-shelf-renderer:has(.reel-shelf-title-wrapper:has-text(Shorts)))
+m.youtube.com##ytm-reel-shelf-renderer.item:has(.reel-shelf-title-wrapper:has-text(Shorts))
+
+! Hide shorts tab on channel pages
+m.youtube.com##.single-column-browse-results-tabs>a:has-text(Shorts)
+
+
+! Hide LinkedIn feed only in the feed pages
+www.linkedin.com##.scaffold-finite-scroll--infinite.scaffold-finite-scroll:matches-path(/feed)
+www.linkedin.com##.feed-sort-toggle-dsa__wrapper:matches-path(/feed)
+
+! Hide LinkedIn recommended
+www.linkedin.com##.scaffold-layout__aside[aria-label="Add to your feed"]
+
+! Hide LinkedIn premium sponsor ads
+www.linkedin.com##.premium-upsell-link--extra-long
+
+! Hide LinkedIn messages overlay
+www.linkedin.com##.msg-overlay-container-reflow.msg-overlay-container
+www.linkedin.com##.mb2.artdeco-card.community-panel
+
+! Hide LinkedIn "Try Premium for free" in My Network
+www.linkedin.com##.relative.flex-column.display-flex.align-items-left.mb4.artdeco-card.p4.mn-sales-navigator-upsell
+www.linkedin.com##.artdeco-card.full-width.mn-abi-form__container
+
+! Hide LinkedIn "For Business" Top Bar
+www.linkedin.com##.flex-column.display-flex.align-items-left.mt5.p4.artdeco-card
+www.linkedin.com##.global-nav__app-launcher-trigger.pl3.global-nav__primary-item--divider.global-nav__primary-link
+
+! Hide LinkedIn "Try Premium for free" both in specific job and Jobs search
+www.linkedin.com##.premium-accent-bar.ember-view.artdeco-card
+www.linkedin.com##.ph5.pv4.job-details-how-you-match-card__upsell
+www.linkedin.com##.flex-column.display-flex.align-items-left.p4.justify-center.artdeco-card
 
 
 ! Title: Gmail Inbox High-Contrast Restoration
@@ -2866,7 +2935,6 @@ duckduckgo.com##.tile-wrap a[href*="zxc.wiki/"]:upward(.tile)
 
 ! Hide the list install prompt for that list
 letsblock.it###install-prompt-a4b57256-bd11-4dc8-a2a5-0fd2b5dcad1e
-
 
 ||accounts.google.com/gsi/*$xhr,script,3p
 
